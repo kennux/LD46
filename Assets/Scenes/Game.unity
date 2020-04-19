@@ -236,9 +236,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b035618669bcf764dbb3b57a7f9c9234, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ReactorGridUI: {fileID: 1585529124}
-  StoreBoxUI: {fileID: 1074929605}
-  InfoBoxUI: {fileID: 1151736113}
+  reactorGridUI: {fileID: 1585529124}
+  storeBoxUI: {fileID: 1074929605}
+  infoBoxUI: {fileID: 1151736113}
 --- !u!1 &675846292 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 880171345238183126, guid: 75174dc76efb09d438263b225c967075,
@@ -1012,7 +1012,7 @@ GameObject:
   - component: {fileID: 1585529123}
   - component: {fileID: 1585529124}
   m_Layer: 5
-  m_Name: GridArea
+  m_Name: Grid
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

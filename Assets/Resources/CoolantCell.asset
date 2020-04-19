@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d29e2b9dfd36f9448b166fbb8e0c2426, type: 3}
-  m_Name: HeatVent
+  m_Name: CoolantCell
   m_EditorClassIdentifier: 
   displayName: Heat vent
   tooltip: 
   durability: 1000
-  uiIcon: {fileID: 0}
+  uiIcon: {fileID: 21300000, guid: 97a01900665044a47a247aa647afc114, type: 3}
   price: 50
   energyGenerationMegaWatts: 0
   energyConsumptionMegaWatts: 0

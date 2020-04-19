@@ -16,7 +16,7 @@ public class StoreBoxEntryUIController : MonoBehaviour
 
     public ReactorPartDef part { get; private set; }
 
-    public Action<ReactorPartDef> selected;
+    public event Action<ReactorPartDef> selected;
 
     public void Initialize(ReactorPartDef part)
     {

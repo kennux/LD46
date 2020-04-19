@@ -8,7 +8,7 @@ public class StoreBoxUIController : MonoBehaviour
 
     public StoreBoxEntryUIController entryPrefab;
 
-    public Action<ReactorPartDef> partSelected;
+    public event Action<ReactorPartDef> partSelected;
 
     public void Initialize(IEnumerable<ReactorPartDef> parts)
     {

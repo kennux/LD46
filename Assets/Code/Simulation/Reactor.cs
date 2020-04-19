@@ -13,7 +13,7 @@ public class Reactor
 	public const int CellHeatMin = 0;
 	public const int CellHeatMax = 1000;
 	public const int TicksPerSecond = 60;
-	public const float TimePassedPerTick = 1 / TicksPerSecond;
+	public const float TimePassedPerTick = 1f / TicksPerSecond;
 
 	private int sizeX;
 	private int sizeY;
@@ -33,7 +33,8 @@ public class Reactor
 		this.sizeY = sizeY;
 
 		this.parts = new ReactorPart[sizeX * sizeY];
-	}
+        this.cellHeats = new float[sizeX * sizeY];
+    }
 
 	public int GetCellIndex(int x, int y)
 	{
@@ -57,15 +58,20 @@ public class Reactor
 	}
 
 	public void SetPart(int index, ReactorPart part)
-	{
+    {
 		this.parts[index] = part;
-		part.SetReactor(this);
+		part?.SetReactor(this);
 	}
 
 	public ReactorPart GetPart(int x, int y)
-	{
-		return this.parts[GetCellIndex(x, y)];
-	}
+    {
+        return GetPart(GetCellIndex(x, y));
+    }
+
+    public ReactorPart GetPart(int index)
+    {
+        return this.parts[index];
+    }
 
 	public float GetCellHeat(int x, int y)
 	{
