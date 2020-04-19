@@ -73,7 +73,7 @@ public class GameUIController : MonoBehaviour
         game.Update(Time.deltaTime);
 
         reactorGridUI.UpdateParts();
-        infoBoxUI.UpdateValues(game.playerMoney, game.currentDemand, game.producedEnergy);
+        infoBoxUI.UpdateValues(game.playerMoney, game.currentDemand, game.producedEnergy * Reactor.TicksPerSecond);
 
         if (CancelBuyPartInput())
         {
