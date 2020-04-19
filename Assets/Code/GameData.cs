@@ -18,6 +18,7 @@ public static class GameData
 
 	public static IEnumerable<ReactorPartDef> ReactorParts()
 	{
+		Initialize();
 		return partDefs;
 	}
 }

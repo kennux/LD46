@@ -5,22 +5,30 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "ReactorPart", menuName = "Reactor part")]
 public class ReactorPartDef : ScriptableObject
 {
-	// General
+	[Header("General")]
 	public string displayName;
 	public string tooltip;
-	public int durability = -1; // -1 = infinite
+	public float durability = -1; // -1 = infinite
 	public Sprite uiIcon;
+	public float price;
 
-	// Energy (everything is in MW/S)
+	[Header("Energy (MW/s)")]
 	public float energyGenerationMegaWatts = 0;
 	public float energyConsumptionMegaWatts = 0;
 
-	// Heat management (everything is in heat / s)
-	public float heatExchangeRate = 0;
-	public float heatRemoval = 0;
+	[Header("Heat (Heat/s)")]
+	public float heatNeighborPullRate = 0;
+	public float heatGeneration = 0;
+	public float heatNeighborRemovalRate = 0;
 	public float durabilityLossPerHeat = 0;
 
-	// Misc
+	[Header("Misc")]
 	public float nearbyEnergyProductionBoost = 0;
 	public float durabilityLossPerSecond = 0;
+
+	public void OnValidate()
+	{
+		if (heatNeighborPullRate < 0)
+			Debug.LogWarning("Heat exchange rate cannot be less than 0!");
+	}
 }

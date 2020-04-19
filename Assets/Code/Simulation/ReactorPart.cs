@@ -8,14 +8,15 @@ public class ReactorPart
 	public const float EnergyProductionDecreaseDueToHeatMax = 0.5f;
 
 	private ReactorPartDef def;
-	private int durability;
+	private float durability;
 	private Reactor reactor;
 
 	public ReactorPartDef Def => def;
 	public Reactor Reactor => reactor;
 
 	// State
-	public int CurrentDurability => durability;
+	public float CurrentDurability => durability;
+	public bool HasDurability => def.durability == -1;
 	public float CurrentEnergyProductionPerSecondMegaWatts
 	{
 		get
@@ -27,12 +28,35 @@ public class ReactorPart
 			if (reactor == null)
 				return productionBase;
 
+			// Nearby production boosts
+			int x, y, myIndex = Array.IndexOf(reactor.PartsReadOnly, this);
+			reactor.GetCellPos(myIndex, out x, out y);
+			float boost = 1;
+			for (int i = 0; i < Utility.NeighborOffsetX.Length; i++)
+			{
+				int oX = Utility.NeighborOffsetX[i], oY = Utility.neighborOffsetY[i];
+				int nX = x + oX;
+				int nY = y + oY;
+				if (!reactor.IsValidPos(nX, nY))
+					continue;
+
+				var part = reactor.GetPart(nX, nY);
+				if (part == null)
+					continue;
+
+				boost += part.NearbyEnergyProductionBoost;
+			}
+
 			float invNormalizedHeat = Reactor.GetNormalizedHeat(reactor.GetCellHeat(Array.IndexOf(reactor.PartsReadOnly, this)));
 			invNormalizedHeat = 1f - invNormalizedHeat;
 
-			return productionBase * invNormalizedHeat * EnergyProductionDecreaseDueToHeatMax;
+			return productionBase * invNormalizedHeat * EnergyProductionDecreaseDueToHeatMax * boost;
 		}
 	}
+	public bool ProducesHeat => def.heatGeneration > 0;
+	public bool PullsHeat => def.heatNeighborPullRate > 0;
+	public bool HeatCanBePulledFrom => ProducesHeat || PullsHeat;
+	public float NearbyEnergyProductionBoost => def.nearbyEnergyProductionBoost;
 
 	public ReactorPart(ReactorPartDef partDef)
 	{
@@ -46,8 +70,51 @@ public class ReactorPart
 		this.reactor = reactor;
 	}
 
-	public void Tick(ref TickResult tickResult, int[] cellHeats)
+	public void Tick(ref TickResult tickResult, float[] cellHeats)
 	{
+		int x, y, myIndex = Array.IndexOf(reactor.PartsReadOnly, this);
+		reactor.GetCellPos(myIndex, out x, out y);
 
+		durability -= def.durabilityLossPerSecond.PerSecondToPerTick();
+		tickResult.energyProducedMegaWatts += CurrentEnergyProductionPerSecondMegaWatts.PerSecondToPerTick();
+
+		// Neighbor heat pulling and removal
+		if (!Mathf.Approximately(def.heatNeighborPullRate, 0))
+		{
+			float pullRate = def.heatNeighborPullRate.PerSecondToPerTick();
+			float removeRate = def.heatNeighborRemovalRate.PerSecondToPerTick();
+
+			float pulledHeat = 0, removedHeat = 0;
+			// Pull neighbors heat
+			for (int i = 0; i < Utility.NeighborOffsetX.Length; i++)
+			{
+				int oX = Utility.NeighborOffsetX[i], oY = Utility.neighborOffsetY[i];
+				int nX = x + oX;
+				int nY = y + oY;
+				if (!reactor.IsValidPos(nX, nY))
+					continue;
+
+				int idx = reactor.GetCellIndex(nX, nY);
+				var part = reactor.GetPart(nX, nY);
+
+				if ((part == null || part.HeatCanBePulledFrom) && cellHeats[idx] > 0)
+				{
+					float pull = Mathf.Clamp(cellHeats[idx], 0, pullRate);
+					pulledHeat += pull;
+					cellHeats[idx] -= pull;
+
+					float remove = Mathf.Clamp(cellHeats[idx], 0, removeRate);
+					removedHeat += remove;
+					cellHeats[idx] -= remove;
+				}
+			}
+
+			cellHeats[myIndex] += pulledHeat;
+			durability -= (pulledHeat + removedHeat) * def.durabilityLossPerHeat;
+		}
+
+		// Heat generation / removal
+		if (!Mathf.Approximately(def.heatGeneration, 0))
+			cellHeats[myIndex] += def.heatGeneration.PerSecondToPerTick();
 	}
 }

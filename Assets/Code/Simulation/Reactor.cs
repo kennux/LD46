@@ -4,7 +4,7 @@ using UnityEngine;
 
 public struct TickResult
 {
-	public int energyProduced;
+	public float energyProducedMegaWatts;
 	public bool reactorExploded;
 }
 
@@ -19,10 +19,10 @@ public class Reactor
 	private int sizeY;
 
 	private ReactorPart[] parts;
-	private int[] cellHeats;
+	private float[] cellHeats;
 	public ReactorPart[] PartsReadOnly => parts;
 
-	public static float GetNormalizedHeat(int heat)
+	public static float GetNormalizedHeat(float heat)
 	{
 		return heat / (float)CellHeatMax;
 	}
@@ -38,6 +38,17 @@ public class Reactor
 	public int GetCellIndex(int x, int y)
 	{
 		return x * sizeY + y;
+	}
+
+	public void GetCellPos(int index, out int x, out int y)
+	{
+		x = Mathf.FloorToInt(index / (float)sizeY);
+		y = index % sizeY;
+	}
+
+	public bool IsValidPos(int x, int y)
+	{
+		return x >= 0 && x < sizeX && y >= 0 && y < sizeY;
 	}
 
 	public void SetPart(int x, int y, ReactorPart part)
@@ -56,12 +67,12 @@ public class Reactor
 		return this.parts[GetCellIndex(x, y)];
 	}
 
-	public int GetCellHeat(int x, int y)
+	public float GetCellHeat(int x, int y)
 	{
 		return GetCellHeat(GetCellIndex(x, y));
 	}
 
-	public int GetCellHeat(int index)
+	public float GetCellHeat(int index)
 	{
 		return this.cellHeats[index];
 	}
@@ -70,13 +81,22 @@ public class Reactor
 	{
 		var tickResult = new TickResult()
 		{
-			energyProduced = 0,
+			energyProducedMegaWatts = 0,
 			reactorExploded = false
 		};
 
-		foreach (var part in parts)
+		for (int i = 0; i < parts.Length; i++)
 		{
+			if (parts[i] == null)
+				continue;
+
+			var part = parts[i];
 			part.Tick(ref tickResult, cellHeats);
+
+			if (part.HasDurability && part.CurrentDurability <= 0)
+			{
+				parts[i] = null;
+			}
 		}
 
 		// Check for explosion

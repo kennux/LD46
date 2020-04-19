@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d29e2b9dfd36f9448b166fbb8e0c2426, type: 3}
+  m_Name: HeatExchanger
+  m_EditorClassIdentifier: 
+  displayName: Heat exchanger
+  tooltip: 
+  durability: 1000
+  uiIcon: {fileID: 0}
+  price: 25
+  energyGenerationMegaWatts: 0
+  energyConsumptionMegaWatts: 0
+  heatNeighborPullRate: 5
+  heatGeneration: 0
+  durabilityLossPerHeat: 0.1
+  nearbyEnergyProductionBoost: 0
+  durabilityLossPerSecond: 0
