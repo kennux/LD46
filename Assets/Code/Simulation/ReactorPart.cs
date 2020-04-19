@@ -70,7 +70,7 @@ public class ReactorPart
 		this.reactor = reactor;
 	}
 
-	public void Tick(ref TickResult tickResult, float[] cellHeats)
+	public void Tick(ref ReactorTickResult tickResult, float[] cellHeats)
 	{
 		int x, y, myIndex = Array.IndexOf(reactor.PartsReadOnly, this);
 		reactor.GetCellPos(myIndex, out x, out y);

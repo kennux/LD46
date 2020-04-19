@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public struct TickResult
+public struct ReactorTickResult
 {
 	public float energyProducedMegaWatts;
 	public bool reactorExploded;
@@ -77,9 +77,9 @@ public class Reactor
 		return this.cellHeats[index];
 	}
 
-	public TickResult Tick()
+	public ReactorTickResult Tick()
 	{
-		var tickResult = new TickResult()
+		var tickResult = new ReactorTickResult()
 		{
 			energyProducedMegaWatts = 0,
 			reactorExploded = false
