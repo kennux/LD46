@@ -7,6 +7,7 @@ public class ReactorPartDef : ScriptableObject
 {
 	[Header("General")]
 	public string displayName;
+	[Multiline]
 	public string tooltip;
 	public float durability = -1; // -1 = infinite
 	public Sprite uiIcon;

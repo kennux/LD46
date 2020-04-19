@@ -12,9 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d29e2b9dfd36f9448b166fbb8e0c2426, type: 3}
   m_Name: PlutoniumFuelRod
   m_EditorClassIdentifier: 
-  displayName: Uranium fuel rod
-  tooltip: 
-  durability: 1000
+  displayName: Plutonium fuel rod
+  tooltip: A fueld rod filled with plutonium fuel (2 MW/s generation, 5 Heat/s, 300
+    seconds burn time).
+  durability: 900
   uiIcon: {fileID: 21300000, guid: 97a01900665044a47a247aa647afc114, type: 3}
   price: 200
   energyGenerationMegaWatts: 2
