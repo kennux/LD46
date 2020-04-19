@@ -8,12 +8,14 @@ public class ReactorGridUIController : MonoBehaviour
 
     public ReactorGridCellUIController cellPrefab;
 
-    public event Action<int> cellSelected;
-
     private Reactor reactor;
 
     private ReactorGridCellUIController[] cells;
 
+    public event Action<int> cellLeftClick;
+
+    public event Action<int> cellRightClick;
+    
     public void Initialize(Reactor reactor)
     {
         this.reactor = reactor;
@@ -36,15 +38,21 @@ public class ReactorGridUIController : MonoBehaviour
         {
             var cell = Instantiate(cellPrefab, gridLayout.transform);
             cell.Initialize(cellIndex);
-            cell.selected += OnCellSelected;
+            cell.leftClick += OnCellLeftClick;
+            cell.rightClick += OnCellRightClick;
 
             cells[cellIndex] = cell;
         }
     }
 
-    private void OnCellSelected(int cellIndex)
+    private void OnCellLeftClick(int cellIndex)
     {
-        cellSelected?.Invoke(cellIndex);
+        cellLeftClick?.Invoke(cellIndex);
+    }
+
+    private void OnCellRightClick(int celIndex)
+    {
+        cellRightClick?.Invoke(celIndex);
     }
 
     public void UpdateParts()

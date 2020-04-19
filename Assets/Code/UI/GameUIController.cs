@@ -17,13 +17,14 @@ public class GameUIController : MonoBehaviour
         game = new Game();
         
         reactorGridUI.Initialize(game.reactor);
-        reactorGridUI.cellSelected += OnCellSelected;
+        reactorGridUI.cellLeftClick += OnCellLeftClick;
+        reactorGridUI.cellRightClick += OnCellRightClick;
 
         storeBoxUI.Initialize(GameData.GetReactorParts());
         storeBoxUI.partSelected += PartSelected;
     }
 
-    private void OnCellSelected(int cellIndex)
+    private void OnCellLeftClick(int cellIndex)
     {
         if (selectedPart == null)
         {
@@ -44,6 +45,16 @@ public class GameUIController : MonoBehaviour
         selectedPart = null;
     }
 
+    private void OnCellRightClick(int cellIndex)
+    {
+        if (selectedPart != null)
+        {
+            return;
+        }
+
+        game.reactor.SetPart(cellIndex, null);
+    }
+
     private void PartSelected(ReactorPartDef part)
     {
         selectedPart = part;
@@ -55,5 +66,15 @@ public class GameUIController : MonoBehaviour
 
         reactorGridUI.UpdateParts();
         infoBoxUI.UpdateValues(game.playerMoney, game.currentDemand, game.producedEnergy);
+
+        if (CancelBuyPartInput())
+        {
+            selectedPart = null;
+        }
+    }
+
+    private bool CancelBuyPartInput()
+    {
+        return Input.GetKeyDown(KeyCode.Escape);
     }
 }
