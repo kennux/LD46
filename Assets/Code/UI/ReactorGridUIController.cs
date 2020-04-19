@@ -60,6 +60,7 @@ public class ReactorGridUIController : MonoBehaviour
         foreach (var cell in cells)
         {
             cell.UpdatePart(reactor.GetPart(cell.cellIndex));
+            cell.SetTemperature(Reactor.GetNormalizedHeat(reactor.GetCellHeat(cell.cellIndex)));
         }
     }
 }

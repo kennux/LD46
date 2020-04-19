@@ -6,6 +6,10 @@ public class ReactorGridCellUIController : MonoBehaviour
 {
     public Image partIcon;
 
+    public Image temperatureMeterImage;
+
+    public Gradient temperatureGradient;
+
     public ClickTrigger clickTrigger;
 
     public int cellIndex { get; private set; }
@@ -52,5 +56,10 @@ public class ReactorGridCellUIController : MonoBehaviour
     {
         partIcon.enabled = this.part != null;
         partIcon.sprite = this.part?.Def.uiIcon;
+    }
+
+    public void SetTemperature(float temperature)
+    {
+        temperatureMeterImage.color = temperatureGradient.Evaluate(temperature);
     }
 }
