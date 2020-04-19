@@ -11,6 +11,7 @@ public class Game
 
 	public float playerMoney = PlayerStartingMoney;
 	public float currentDemand = StartingDemand;
+    public float producedEnergy;
 
 	public Reactor reactor;
 	private float deltaTimeLeft;
@@ -41,5 +42,6 @@ public class Game
 		var result = reactor.Tick();
 
 		playerMoney += result.energyProducedMegaWatts * MoneyPerMegawattSecond.PerSecondToPerTick();
-	}
+        producedEnergy = result.energyProducedMegaWatts;
+    }
 }
