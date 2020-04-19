@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[CreateAssetMenu(fileName = "ReactorPart", menuName = "Reactor part")]
 public class ReactorPartDef : ScriptableObject
 {
 	// General
