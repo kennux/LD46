@@ -14,7 +14,7 @@ public class ReactorPart
 
 	// State
 	public float CurrentDurability => durability;
-	public bool HasDurability => def.durability == -1;
+	public bool HasDurability => def.durability > -1;
 	public float CurrentEnergyProductionPerSecondMegaWatts
 	{
 		get

@@ -6,6 +6,10 @@ public class ReactorGridCellUIController : MonoBehaviour
 {
     public Image partIcon;
 
+    public GameObject durabilityGameObject;
+
+    public Slider durabilitySlider;
+
     public Image temperatureMeterImage;
 
     public Gradient temperatureGradient;
@@ -43,19 +47,21 @@ public class ReactorGridCellUIController : MonoBehaviour
 
     public void UpdatePart(ReactorPart part)
     {
-        if (this.part == part)
-        {
-            return;
-        }
-
         this.part = part;
         UpdatePartIcon();
+        UpdatePartDurability();
     }
 
     private void UpdatePartIcon()
     {
         partIcon.enabled = this.part != null;
         partIcon.sprite = this.part?.Def.uiIcon;
+    }
+
+    private void UpdatePartDurability()
+    {
+        durabilityGameObject.SetActive(part != null && part.HasDurability);
+        durabilitySlider.value = part != null ? part.CurrentDurability / part.Def.durability : 0;
     }
 
     public void SetTemperature(float temperature)
