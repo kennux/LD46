@@ -16,7 +16,7 @@ public static class GameData
 		partDefs = Resources.LoadAll<ReactorPartDef>("");
 	}
 
-	public static IEnumerable<ReactorPartDef> ReactorParts()
+	public static IEnumerable<ReactorPartDef> GetReactorParts()
 	{
 		Initialize();
 		return partDefs;

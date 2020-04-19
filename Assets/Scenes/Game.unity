@@ -237,7 +237,44 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ReactorGridUI: {fileID: 1585529124}
+  StoreBoxUI: {fileID: 1074929605}
   InfoBoxUI: {fileID: 1151736113}
+--- !u!1 &675846292 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 880171345238183126, guid: 75174dc76efb09d438263b225c967075,
+    type: 3}
+  m_PrefabInstance: {fileID: 6262017790347795901}
+  m_PrefabAsset: {fileID: 0}
+--- !u!224 &675846293 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 3754731844402188195, guid: 75174dc76efb09d438263b225c967075,
+    type: 3}
+  m_PrefabInstance: {fileID: 6262017790347795901}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &675846294
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 675846292}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a8695521f0d02e499659fee002a26c2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Padding:
+    m_Left: 0
+    m_Right: 0
+    m_Top: 0
+    m_Bottom: 0
+  m_ChildAlignment: 1
+  m_StartCorner: 0
+  m_StartAxis: 0
+  m_CellSize: {x: 100, y: 120}
+  m_Spacing: {x: 15, y: 10}
+  m_Constraint: 1
+  m_ConstraintCount: 4
 --- !u!1001 &853620562
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -573,12 +610,33 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 986731470}
   m_CullTransparentMesh: 0
+--- !u!1 &1074929603 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8532002536202375683, guid: 75174dc76efb09d438263b225c967075,
+    type: 3}
+  m_PrefabInstance: {fileID: 6262017790347795901}
+  m_PrefabAsset: {fileID: 0}
 --- !u!224 &1074929604 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 279178605024975920, guid: 75174dc76efb09d438263b225c967075,
     type: 3}
   m_PrefabInstance: {fileID: 6262017790347795901}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1074929605
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1074929603}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 30a96e6fc30714d458e5ffc839be9175, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  entriesParent: {fileID: 675846293}
+  entryPrefab: {fileID: 1438066874142868200, guid: 41e5c165b6ff5e848bc1378fff6f3ebe,
+    type: 3}
 --- !u!1001 &1142382986
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1370,6 +1428,21 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 3521666782968155668, guid: 75174dc76efb09d438263b225c967075,
+        type: 3}
+      propertyPath: m_text
+      value: Store
+      objectReference: {fileID: 0}
+    - target: {fileID: 3521666782968155668, guid: 75174dc76efb09d438263b225c967075,
+        type: 3}
+      propertyPath: m_textInfo.characterCount
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 3754731844402188195, guid: 75174dc76efb09d438263b225c967075,
+        type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5554852577444358560, guid: 75174dc76efb09d438263b225c967075,
         type: 3}
       propertyPath: m_IsActive
@@ -1410,5 +1483,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: StoreBox
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 2923844430860953626, guid: 75174dc76efb09d438263b225c967075, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 75174dc76efb09d438263b225c967075, type: 3}
