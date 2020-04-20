@@ -7,7 +7,7 @@ public class Game
 	public const int PlayerStartingMoney = 500;
 	public const float DemandIncreasePerMinute = 1f;
 	public const float StartingDemand = 1;
-	public const float MoneyPerMegawattSecond = .75f;
+	public const float MoneyPerMegawattSecond = 1f;
 
 	public float playerMoney = PlayerStartingMoney;
 	public float currentDemand = StartingDemand;
