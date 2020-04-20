@@ -12,6 +12,7 @@ public class Game
 	public float playerMoney = PlayerStartingMoney;
 	public float currentDemand = StartingDemand;
     public float producedEnergy;
+    public bool reactorExploded;
 
 	public Reactor reactor;
 	private float deltaTimeLeft;
@@ -43,5 +44,6 @@ public class Game
 
 		playerMoney += result.energyProducedMegaWatts * MoneyPerMegawattSecond;
         producedEnergy = result.energyProducedMegaWatts;
+        reactorExploded = result.reactorExploded;
     }
 }

@@ -1,8 +1,17 @@
 ﻿using System;
 using UnityEngine;
 
+public enum GameOverReason
+{
+    ReactorExploded,
+
+    DemandUnmetForTooLong
+}
+
 public class GameUIController : MonoBehaviour
 {
+    public float demandNotMetGameOverTime = 20;
+
     public SpeedControlsUIController speedControls;
 
     public GameSpeed initialGameSpeed = GameSpeed.Speed1;
@@ -21,13 +30,19 @@ public class GameUIController : MonoBehaviour
 
     public SelectedPartLayer selectedPartLayer;
 
+    public GameOverLayerUIController gameOverLayer;
+
     private Game game;
 
     private ReactorPart selectedPart;
 
     private int movingPartFromCellIndex = -1;
 
-    private int _requestedRemovePartCellIndex = -1;
+    private int requestedRemovePartCellIndex = -1;
+
+    private float timeSurvived;
+
+    private float timeDemandNotMet;
 
     private void Start()
     {
@@ -75,7 +90,7 @@ public class GameUIController : MonoBehaviour
 
     private void OnCellRightClick(int cellIndex)
     {
-        _requestedRemovePartCellIndex = cellIndex;
+        requestedRemovePartCellIndex = cellIndex;
     }
 
     private void OnPartSelected(ReactorPartDef part)
@@ -91,7 +106,14 @@ public class GameUIController : MonoBehaviour
 
     private void Update()
     {
-        game.Update(Time.deltaTime * GetGameSpeedTimeScale());
+        if (IsGameOver(out var reason))
+        {
+            SetSelectedPart(null);
+            gameOverLayer.Show(reason, (int) (timeSurvived * 10));
+            return;
+        }
+
+        UpdateSimulation();
 
         reactorGridUI.Refresh();
         infoBoxUI.UpdateValues(game.playerMoney, game.currentDemand, game.producedEnergy * Reactor.TicksPerSecond);
@@ -100,12 +122,30 @@ public class GameUIController : MonoBehaviour
         {
             CancelSettingPart();
         }
-        else if (_requestedRemovePartCellIndex >= 0)
+        else if (requestedRemovePartCellIndex >= 0)
         {
-            game.reactor.SetPart(_requestedRemovePartCellIndex, null);
+            game.reactor.SetPart(requestedRemovePartCellIndex, null);
         }
 
-        _requestedRemovePartCellIndex = -1;
+        requestedRemovePartCellIndex = -1;
+    }
+
+    private void UpdateSimulation()
+    {
+        var dt = Time.deltaTime * GetGameSpeedTimeScale();
+
+        game.Update(dt);
+
+        timeSurvived += dt;
+
+        if (game.producedEnergy * Reactor.TicksPerSecond < game.currentDemand)
+        {
+            timeDemandNotMet += dt;
+        }
+        else
+        {
+            timeDemandNotMet = 0;
+        }
     }
 
     private float GetGameSpeedTimeScale()
@@ -136,5 +176,23 @@ public class GameUIController : MonoBehaviour
             movingPartFromCellIndex = -1;
         }
         SetSelectedPart(null);
+    }
+
+    private bool IsGameOver(out GameOverReason reason)
+    {
+        if (game.reactorExploded)
+        {
+            reason = GameOverReason.ReactorExploded;
+            return true;
+        }
+
+        if (timeDemandNotMet >= demandNotMetGameOverTime)
+        {
+            reason = GameOverReason.DemandUnmetForTooLong;
+            return true;
+        }
+
+        reason = default;
+        return false;
     }
 }
