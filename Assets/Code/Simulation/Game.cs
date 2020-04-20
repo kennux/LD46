@@ -4,7 +4,7 @@ public class Game
 {
 	public const int ReactorSizeX = 8;
 	public const int ReactorSizeY = 6;
-	public const int PlayerStartingMoney = 100;
+	public const int PlayerStartingMoney = 500;
 	public const float DemandIncreasePerMinute = 1f;
 	public const float StartingDemand = 1;
 	public const float MoneyPerMegawattSecond = .75f;
