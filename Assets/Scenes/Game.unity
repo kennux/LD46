@@ -1537,7 +1537,7 @@ PrefabInstance:
     - target: {fileID: 3984233449153245972, guid: 78844ff8f976e0b4c9b3a6dcdb0ccb11,
         type: 3}
       propertyPath: m_textInfo.characterCount
-      value: 17
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 3984233449153245972, guid: 78844ff8f976e0b4c9b3a6dcdb0ccb11,
         type: 3}
@@ -1573,7 +1573,7 @@ PrefabInstance:
     - target: {fileID: 3984233449153245972, guid: 78844ff8f976e0b4c9b3a6dcdb0ccb11,
         type: 3}
       propertyPath: m_fontStyle
-      value: 1
+      value: 17
       objectReference: {fileID: 0}
     - target: {fileID: 3984233449153245972, guid: 78844ff8f976e0b4c9b3a6dcdb0ccb11,
         type: 3}
@@ -1588,12 +1588,12 @@ PrefabInstance:
     - target: {fileID: 3984233449153245972, guid: 78844ff8f976e0b4c9b3a6dcdb0ccb11,
         type: 3}
       propertyPath: m_fontSize
-      value: 24
+      value: 32
       objectReference: {fileID: 0}
     - target: {fileID: 3984233449153245972, guid: 78844ff8f976e0b4c9b3a6dcdb0ccb11,
         type: 3}
       propertyPath: m_fontSizeBase
-      value: 24
+      value: 32
       objectReference: {fileID: 0}
     - target: {fileID: 3984233449153245972, guid: 78844ff8f976e0b4c9b3a6dcdb0ccb11,
         type: 3}
@@ -1603,7 +1603,7 @@ PrefabInstance:
     - target: {fileID: 3984233449153245972, guid: 78844ff8f976e0b4c9b3a6dcdb0ccb11,
         type: 3}
       propertyPath: m_text
-      value: PLACEHOLDER TITLE
+      value: Sector 7G
       objectReference: {fileID: 0}
     - target: {fileID: 4382226913658481321, guid: 78844ff8f976e0b4c9b3a6dcdb0ccb11,
         type: 3}
