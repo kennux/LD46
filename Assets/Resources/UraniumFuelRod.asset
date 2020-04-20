@@ -16,7 +16,7 @@ MonoBehaviour:
   tooltip: A fuel rod filled with uranium fuel (1 MW/s generation, 10 Heat/s, 500
     seconds burn time).
   durability: 1000
-  uiIcon: {fileID: 21300000, guid: 97a01900665044a47a247aa647afc114, type: 3}
+  uiIcon: {fileID: 21300000, guid: 9c83f0ba2bc16f14fbce8a4bebfb5e18, type: 3}
   price: 80
   energyGenerationMegaWatts: 1
   energyConsumptionMegaWatts: 0
