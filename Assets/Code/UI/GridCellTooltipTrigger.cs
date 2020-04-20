@@ -2,7 +2,7 @@
 
 public class GridCellTooltipTrigger : TooltipTrigger
 {
-    [TextArea] public string tooltipFormat = "Temperature: {0:0.0} C\nDurability: {1}%";
+    [TextArea] public string tooltipFormat = "<b>{0}</b>\n\nTemperature: {1:0.0} C\nDurability: {2}%";
 
     public Reactor reactor { get; private set; }
 
@@ -24,6 +24,6 @@ public class GridCellTooltipTrigger : TooltipTrigger
 
         var temperature = reactor.GetCellHeat(cellIndex);
         var durability = Mathf.RoundToInt(part.CurrentDurability / part.Def.durability * 100);
-        return string.Format(tooltipFormat, temperature, durability);
+        return string.Format(tooltipFormat, part.Def.displayName, temperature, durability);
     }
 }

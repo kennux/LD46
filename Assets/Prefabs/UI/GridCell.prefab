@@ -318,9 +318,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b83241f0caececd4398152eef976b843, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tooltipFormat: 'Temperature: {0:0.0} C
+  tooltipFormat: '<b>{0}</b>
 
-    Durability: {1}%'
+
+    Temperature: {1:0.0} C
+
+    Durability: {2}%'
 --- !u!1 &4790374419441744167
 GameObject:
   m_ObjectHideFlags: 0
