@@ -838,7 +838,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   demandNotMetGameOverTime: 20
   speedControls: {fileID: 170239481}
-  initialGameSpeed: 1
+  initialGameSpeed: 0
   gameSpeed1TimeScale: 1
   gameSpeed2TimeScale: 2
   gameSpeed3TimeScale: 4
