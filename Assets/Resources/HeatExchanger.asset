@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: HeatExchanger
   m_EditorClassIdentifier: 
   displayName: Heat exchanger
-  tooltip: "Pulls up to 5 heat/s <b>per side</b> from nearby heat generating or exchanging\r
-    parts onto itself."
+  tooltip: Pulls up to 5 heat/s <b>per side</b> from nearby heat generating or exchanging
+    parts onto itself.
   durability: -1
   uiIcon: {fileID: 21300000, guid: 33286eca4db6c3545bf1d2467704b3cd, type: 3}
   price: 25
