@@ -4,10 +4,10 @@ public class Game
 {
 	public const int ReactorSizeX = 8;
 	public const int ReactorSizeY = 6;
-	public const int PlayerStartingMoney = 1000;
-	public const float DemandIncreasePerMinute = 0.5f;
+	public const int PlayerStartingMoney = 100;
+	public const float DemandIncreasePerMinute = 1f;
 	public const float StartingDemand = 1;
-	public const float MoneyPerMegawattSecond = 1;
+	public const float MoneyPerMegawattSecond = .75f;
 
 	public float playerMoney = PlayerStartingMoney;
 	public float currentDemand = StartingDemand;

@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -17,6 +18,7 @@ public class Reactor
 
 	private int sizeX;
 	private int sizeY;
+	private bool iterateReversed = false;
 
 	private ReactorPart[] parts;
 	private float[] cellHeats;
@@ -38,13 +40,13 @@ public class Reactor
 
 	public int GetCellIndex(int x, int y)
 	{
-		return x * sizeY + y;
+		return y * sizeX + x;
 	}
 
 	public void GetCellPos(int index, out int x, out int y)
 	{
-		x = Mathf.FloorToInt(index / (float)sizeY);
-		y = index % sizeY;
+		x = index % sizeX;
+		y = Mathf.FloorToInt(index / (float)sizeX);
 	}
 
 	public bool IsValidPos(int x, int y)
@@ -91,10 +93,10 @@ public class Reactor
 			reactorExploded = false
 		};
 
-		for (int i = 0; i < parts.Length; i++)
+		Action<int> iterationAction = (i) =>
 		{
 			if (parts[i] == null)
-				continue;
+				return;
 
 			var part = parts[i];
 			part.Tick(ref tickResult, cellHeats);
@@ -103,7 +105,24 @@ public class Reactor
 			{
 				parts[i] = null;
 			}
+		};
+
+		if (iterateReversed)
+		{
+			for (int i = parts.Length - 1; i >= 0; i--)
+			{
+				iterationAction(i);
+			}
 		}
+		else
+		{
+			for (int i = 0; i < parts.Length; i++)
+			{
+				iterationAction(i);
+			}
+		}
+
+		iterateReversed = !iterateReversed;
 
 		// Check for explosion
 		for (int i = 0; i < cellHeats.Length; i++)

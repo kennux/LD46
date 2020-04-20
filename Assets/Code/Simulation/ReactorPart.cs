@@ -32,7 +32,7 @@ public class ReactorPart
 			float boost = 1;
 			for (int i = 0; i < Utility.NeighborOffsetX.Length; i++)
 			{
-				int oX = Utility.NeighborOffsetX[i], oY = Utility.neighborOffsetY[i];
+				int oX = Utility.NeighborOffsetX[i], oY = Utility.NeighborOffsetY[i];
 				int nX = x + oX;
 				int nY = y + oY;
 				if (!reactor.IsValidPos(nX, nY))
@@ -45,10 +45,10 @@ public class ReactorPart
 				boost += part.NearbyEnergyProductionBoost;
 			}
 
-			float invNormalizedHeat = Reactor.GetNormalizedHeat(reactor.GetCellHeat(Array.IndexOf(reactor.PartsReadOnly, this)));
-			invNormalizedHeat = 1f - invNormalizedHeat;
+			float normalizedHeat = Reactor.GetNormalizedHeat(reactor.GetCellHeat(Array.IndexOf(reactor.PartsReadOnly, this)));
 
-			return productionBase * invNormalizedHeat * EnergyProductionDecreaseDueToHeatMax * boost;
+			float productionDecreasePercentage = Mathf.Lerp(1, EnergyProductionDecreaseDueToHeatMax, normalizedHeat);
+			return productionBase * productionDecreasePercentage * boost;
 		}
 	}
 	public bool ProducesHeat => def.heatGeneration > 0;
@@ -77,7 +77,7 @@ public class ReactorPart
 		tickResult.energyProducedMegaWatts += CurrentEnergyProductionPerSecondMegaWatts.PerSecondToPerTick();
 
 		// Neighbor heat pulling and removal
-		if (!Mathf.Approximately(def.heatNeighborPullRate, 0))
+		if (!Mathf.Approximately(def.heatNeighborPullRate, 0) || !Mathf.Approximately(def.heatNeighborRemovalRate, 0))
 		{
 			float pullRate = def.heatNeighborPullRate.PerSecondToPerTick();
 			float removeRate = def.heatNeighborRemovalRate.PerSecondToPerTick();
@@ -86,7 +86,7 @@ public class ReactorPart
 			// Pull neighbors heat
 			for (int i = 0; i < Utility.NeighborOffsetX.Length; i++)
 			{
-				int oX = Utility.NeighborOffsetX[i], oY = Utility.neighborOffsetY[i];
+				int oX = Utility.NeighborOffsetX[i], oY = Utility.NeighborOffsetY[i];
 				int nX = x + oX;
 				int nY = y + oY;
 				if (!reactor.IsValidPos(nX, nY))

@@ -9,7 +9,7 @@ public static class Utility
 		0,
 		0
 	};
-	public static readonly int[] neighborOffsetY = new int[]
+	public static readonly int[] NeighborOffsetY = new int[]
 	{
 		0,
 		0,
