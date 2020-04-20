@@ -321,9 +321,10 @@ MonoBehaviour:
   tooltipFormat: '<b>{0}</b>
 
 
-    Temperature: {1:0.0} C
+    Temperature: {1:0.0} C'
+  tooltipFormatDurability: '
 
-    Durability: {2}%'
+    Durability: {0}%'
 --- !u!1 &4790374419441744167
 GameObject:
   m_ObjectHideFlags: 0
