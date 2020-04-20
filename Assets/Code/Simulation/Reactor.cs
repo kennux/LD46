@@ -12,7 +12,7 @@ public struct ReactorTickResult
 public class Reactor
 {
 	public const int CellHeatMin = 0;
-	public const int CellHeatMax = 1000;
+	public const int CellHeatMax = 200;
 	public const int TicksPerSecond = 60;
 	public const float TimePassedPerTick = 1f / TicksPerSecond;
 
