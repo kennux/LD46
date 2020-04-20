@@ -27,6 +27,8 @@ public class GameUIController : MonoBehaviour
 
     private int movingPartFromCellIndex = -1;
 
+    private int _requestedRemovePartCellIndex = -1;
+
     private void Start()
     {
         game = new Game();
@@ -73,12 +75,7 @@ public class GameUIController : MonoBehaviour
 
     private void OnCellRightClick(int cellIndex)
     {
-        if (selectedPart != null)
-        {
-            return;
-        }
-
-        game.reactor.SetPart(cellIndex, null);
+        _requestedRemovePartCellIndex = cellIndex;
     }
 
     private void OnPartSelected(ReactorPartDef part)
@@ -99,10 +96,16 @@ public class GameUIController : MonoBehaviour
         reactorGridUI.Refresh();
         infoBoxUI.UpdateValues(game.playerMoney, game.currentDemand, game.producedEnergy * Reactor.TicksPerSecond);
 
-        if (CancelSettingPartInput())
+        if (Input.GetKeyDown(KeyCode.Escape) || Input.GetMouseButtonUp(1) && selectedPart != null)
         {
             CancelSettingPart();
         }
+        else if (_requestedRemovePartCellIndex >= 0)
+        {
+            game.reactor.SetPart(_requestedRemovePartCellIndex, null);
+        }
+
+        _requestedRemovePartCellIndex = -1;
     }
 
     private float GetGameSpeedTimeScale()
@@ -123,11 +126,6 @@ public class GameUIController : MonoBehaviour
         }
 
         throw new ArgumentOutOfRangeException();
-    }
-
-    private bool CancelSettingPartInput()
-    {
-        return Input.GetKeyDown(KeyCode.Escape);
     }
 
     private void CancelSettingPart()
