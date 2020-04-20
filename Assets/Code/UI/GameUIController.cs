@@ -116,7 +116,10 @@ public class GameUIController : MonoBehaviour
         UpdateSimulation();
 
         reactorGridUI.Refresh();
-        infoBoxUI.UpdateValues(game.playerMoney, game.currentDemand, game.producedEnergy * Reactor.TicksPerSecond);
+        infoBoxUI.UpdateValues(
+            game.playerMoney, 
+            Round(game.currentDemand),
+            Round(game.producedEnergy * Reactor.TicksPerSecond));
 
         if (Input.GetKeyDown(KeyCode.Escape) || Input.GetMouseButtonUp(1) && selectedPart != null)
         {
@@ -130,6 +133,11 @@ public class GameUIController : MonoBehaviour
         requestedRemovePartCellIndex = -1;
     }
 
+    private float Round(float value)
+    {
+        return 0.001f * Mathf.RoundToInt(1000 * value);
+    }
+
     private void UpdateSimulation()
     {
         var dt = Time.deltaTime * GetGameSpeedTimeScale();
@@ -138,7 +146,7 @@ public class GameUIController : MonoBehaviour
 
         timeSurvived += dt;
 
-        if (game.producedEnergy * Reactor.TicksPerSecond < game.currentDemand)
+        if (Round(game.producedEnergy * Reactor.TicksPerSecond) < Round(game.currentDemand))
         {
             timeDemandNotMet += dt;
         }
