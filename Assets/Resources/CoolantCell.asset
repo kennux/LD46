@@ -16,6 +16,7 @@ MonoBehaviour:
   tooltip: 'Pulls up to 10 heat/s <b>per side</b> from nearby cells and dissipates
     it.
 
+
     Can dissipate 10k heat but needs replacement then.'
   durability: 1000
   uiIcon: {fileID: 21300000, guid: 23c0bc17d2a202349abe4f341851f8bc, type: 3}
