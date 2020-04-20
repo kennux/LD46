@@ -12,7 +12,9 @@ public class GameUIController : MonoBehaviour
 
     private Game game;
 
-    private ReactorPartDef selectedPart;
+    private ReactorPart selectedPart;
+
+    private int movingPartFromCellIndex = -1;
 
     private void Start()
     {
@@ -28,23 +30,32 @@ public class GameUIController : MonoBehaviour
 
     private void OnCellLeftClick(int cellIndex)
     {
-        if (selectedPart == null)
+        if (selectedPart != null)
         {
-            return;
-        }
+            var isMovingExistingPart = movingPartFromCellIndex >= 0;
+            var canAffordPart = isMovingExistingPart || game.playerMoney >= selectedPart.Def.price;
 
-        if (game.playerMoney < selectedPart.price)
+            if (canAffordPart)
+            {
+                game.playerMoney -= isMovingExistingPart ? 0 : selectedPart.Def.price;
+                
+                if (isMovingExistingPart)
+                {
+                    game.reactor.SetPart(movingPartFromCellIndex, game.reactor.GetPart(cellIndex));
+                }
+                game.reactor.SetPart(cellIndex, selectedPart);
+                
+                SetSelectedPart(null);
+                movingPartFromCellIndex = -1;
+            }
+        }
+        else
         {
-            return;
+            var partBeingMoved = game.reactor.GetPart(cellIndex);
+            movingPartFromCellIndex = partBeingMoved != null ? cellIndex : -1;
+            SetSelectedPart(partBeingMoved);
+            game.reactor.SetPart(cellIndex, null);
         }
-
-        if (selectedPart != game.reactor.GetPart(cellIndex)?.Def)
-        {
-            game.playerMoney -= selectedPart.price;
-            game.reactor.SetPart(cellIndex, new ReactorPart(selectedPart));
-        }
-
-        SetSelectedPart(null);
     }
 
     private void OnCellRightClick(int cellIndex)
@@ -59,10 +70,10 @@ public class GameUIController : MonoBehaviour
 
     private void OnPartSelected(ReactorPartDef part)
     {
-        SetSelectedPart(part);
+        SetSelectedPart(new ReactorPart(part));
     }
 
-    private void SetSelectedPart(ReactorPartDef part)
+    private void SetSelectedPart(ReactorPart part)
     {
         selectedPart = part;
         selectedPartLayer.SetSelectedPart(part);
@@ -75,14 +86,24 @@ public class GameUIController : MonoBehaviour
         reactorGridUI.UpdateParts();
         infoBoxUI.UpdateValues(game.playerMoney, game.currentDemand, game.producedEnergy * Reactor.TicksPerSecond);
 
-        if (CancelBuyPartInput())
+        if (CancelSettingPartInput())
         {
-            SetSelectedPart(null);
+            CancelSettingPart();
         }
     }
 
-    private bool CancelBuyPartInput()
+    private bool CancelSettingPartInput()
     {
         return Input.GetKeyDown(KeyCode.Escape);
+    }
+
+    private void CancelSettingPart()
+    {
+        if (movingPartFromCellIndex >= 0)
+        {
+            game.reactor.SetPart(movingPartFromCellIndex, selectedPart);
+            movingPartFromCellIndex = -1;
+        }
+        SetSelectedPart(null);
     }
 }

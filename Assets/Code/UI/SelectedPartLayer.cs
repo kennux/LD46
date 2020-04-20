@@ -5,13 +5,13 @@ public class SelectedPartLayer : MonoBehaviour
 {
     public Image selectedPartIcon;
 
-    public ReactorPartDef selectedPart { get; private set; }
+    public ReactorPart selectedPart { get; private set; }
 
-    public void SetSelectedPart(ReactorPartDef part)
+    public void SetSelectedPart(ReactorPart part)
     {
         selectedPart = part;
         selectedPartIcon.enabled = selectedPart != null;
-        selectedPartIcon.sprite = selectedPart?.uiIcon;
+        selectedPartIcon.sprite = selectedPart?.Def.uiIcon;
     }
 
     private void Update()
