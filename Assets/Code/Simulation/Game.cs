@@ -41,7 +41,7 @@ public class Game
 		currentDemand = StartingDemand + (Mathf.Floor(timePassed / 60f) * DemandIncreasePerMinute);
 		var result = reactor.Tick();
 
-		playerMoney += result.energyProducedMegaWatts * MoneyPerMegawattSecond.PerSecondToPerTick();
+		playerMoney += result.energyProducedMegaWatts * MoneyPerMegawattSecond;
         producedEnergy = result.energyProducedMegaWatts;
     }
 }
