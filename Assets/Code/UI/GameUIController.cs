@@ -1,7 +1,18 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 public class GameUIController : MonoBehaviour
 {
+    public SpeedControlsUIController speedControls;
+
+    public GameSpeed initialGameSpeed = GameSpeed.Speed1;
+
+    public float gameSpeed1TimeScale = 1;
+
+    public float gameSpeed2TimeScale = 2;
+
+    public float gameSpeed3TimeScale = 4;
+
     public ReactorGridUIController reactorGridUI;
 
     public StoreBoxUIController storeBoxUI;
@@ -19,6 +30,8 @@ public class GameUIController : MonoBehaviour
     private void Start()
     {
         game = new Game();
+
+        speedControls.SetGameSpeed(initialGameSpeed);
         
         reactorGridUI.Initialize(game.reactor);
         reactorGridUI.cellLeftClick += OnCellLeftClick;
@@ -81,7 +94,7 @@ public class GameUIController : MonoBehaviour
 
     private void Update()
     {
-        game.Update(Time.deltaTime);
+        game.Update(Time.deltaTime * GetGameSpeedTimeScale());
 
         reactorGridUI.Refresh();
         infoBoxUI.UpdateValues(game.playerMoney, game.currentDemand, game.producedEnergy * Reactor.TicksPerSecond);
@@ -90,6 +103,26 @@ public class GameUIController : MonoBehaviour
         {
             CancelSettingPart();
         }
+    }
+
+    private float GetGameSpeedTimeScale()
+    {
+        switch (speedControls.gameSpeed)
+        {
+            case GameSpeed.Paused:
+                return 0;
+
+            case GameSpeed.Speed1:
+                return gameSpeed1TimeScale;
+
+            case GameSpeed.Speed2:
+                return gameSpeed2TimeScale;
+
+            case GameSpeed.Speed3:
+                return gameSpeed3TimeScale;
+        }
+
+        throw new ArgumentOutOfRangeException();
     }
 
     private bool CancelSettingPartInput()
