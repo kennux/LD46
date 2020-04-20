@@ -16,7 +16,7 @@ MonoBehaviour:
   tooltip: A fuel rod filled with thorium fuel (0.5 MW/s generation, 5 Heat/s, 1250
     seconds burn time).
   durability: 2500
-  uiIcon: {fileID: 21300000, guid: 97a01900665044a47a247aa647afc114, type: 3}
+  uiIcon: {fileID: 21300000, guid: 3b6a488a402f5464e84491dd888a59f3, type: 3}
   price: 100
   energyGenerationMegaWatts: 0.5
   energyConsumptionMegaWatts: 0
