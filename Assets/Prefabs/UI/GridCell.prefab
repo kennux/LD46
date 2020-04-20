@@ -231,8 +231,9 @@ GameObject:
   - component: {fileID: 6048522114063599826}
   - component: {fileID: 8066416552379418098}
   - component: {fileID: 888022012561050172}
+  - component: {fileID: 5632749952297335496}
   m_Layer: 5
-  m_Name: ClickTrigger
+  m_Name: Events
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -305,6 +306,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 28db12fc61a768b498bf00abd5d7257e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &5632749952297335496
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4680644270153118172}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b83241f0caececd4398152eef976b843, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tooltipFormat: 'Temperature: {0:0.0} C
+
+    Durability: {1}%'
 --- !u!1 &4790374419441744167
 GameObject:
   m_ObjectHideFlags: 0
@@ -465,6 +481,7 @@ MonoBehaviour:
     m_NumColorKeys: 3
     m_NumAlphaKeys: 2
   clickTrigger: {fileID: 888022012561050172}
+  tooltipTrigger: {fileID: 5632749952297335496}
 --- !u!1 &6809608104856593615
 GameObject:
   m_ObjectHideFlags: 0

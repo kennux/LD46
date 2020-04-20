@@ -37,7 +37,7 @@ public class ReactorGridUIController : MonoBehaviour
         for (var cellIndex = 0; cellIndex < cells.Length; cellIndex++)
         {
             var cell = Instantiate(cellPrefab, gridLayout.transform);
-            cell.Initialize(cellIndex);
+            cell.Initialize(reactor, cellIndex);
             cell.leftClick += OnCellLeftClick;
             cell.rightClick += OnCellRightClick;
 
@@ -55,12 +55,11 @@ public class ReactorGridUIController : MonoBehaviour
         cellRightClick?.Invoke(celIndex);
     }
 
-    public void UpdateParts()
+    public void Refresh()
     {
         foreach (var cell in cells)
         {
-            cell.UpdatePart(reactor.GetPart(cell.cellIndex));
-            cell.SetTemperature(Reactor.GetNormalizedHeat(reactor.GetCellHeat(cell.cellIndex)));
+            cell.Refresh();
         }
     }
 }

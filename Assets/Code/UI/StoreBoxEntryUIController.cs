@@ -11,6 +11,8 @@ public class StoreBoxEntryUIController : MonoBehaviour
 
     public Button clickTrigger;
 
+    public StoreBoxEntryTooltipTrigger tooltipTrigger;
+
     [TextArea]
     public string costFormat = "{0:0.00} CR";
 
@@ -24,5 +26,6 @@ public class StoreBoxEntryUIController : MonoBehaviour
         iconImage.sprite = part.uiIcon;
         costText.text = string.Format(costFormat, part.price);
         clickTrigger.onClick.AddListener(() => selected?.Invoke(this.part));
+        tooltipTrigger.part = part;
     }
 }

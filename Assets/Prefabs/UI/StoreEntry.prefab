@@ -268,8 +268,9 @@ GameObject:
   - component: {fileID: 5137965680202894605}
   - component: {fileID: 9114890649622291568}
   - component: {fileID: 3033512885668099033}
+  - component: {fileID: 8956236564267080049}
   m_Layer: 5
-  m_Name: ClickTrigger
+  m_Name: Events
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -289,10 +290,10 @@ RectTransform:
   m_Father: {fileID: 9209340837211134587}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 100, y: 100}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5137965680202894605
 CanvasRenderer:
@@ -373,6 +374,19 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &8956236564267080049
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4631169108057687475}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7cbdc6543efb010438b8bc19541e8618, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  part: {fileID: 0}
 --- !u!1 &7580730373412329226
 GameObject:
   m_ObjectHideFlags: 0
@@ -428,6 +442,7 @@ MonoBehaviour:
   iconImage: {fileID: 7385006031335341599}
   costText: {fileID: 7644919554252470080}
   clickTrigger: {fileID: 3033512885668099033}
+  tooltipTrigger: {fileID: 8956236564267080049}
   costFormat: '{0:0} CR'
 --- !u!1001 &6724686654187357268
 PrefabInstance:

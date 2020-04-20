@@ -16,19 +16,25 @@ public class ReactorGridCellUIController : MonoBehaviour
 
     public ClickTrigger clickTrigger;
 
+    public GridCellTooltipTrigger tooltipTrigger;
+
+    public Reactor reactor { get; private set; }
+
     public int cellIndex { get; private set; }
 
-    public ReactorPart part { get; private set; }
+    public ReactorPart part => reactor.GetPart(cellIndex);
 
     public event Action<int> leftClick;
 
     public event Action<int> rightClick;
 
-    public void Initialize(int cellIndex)
+    public void Initialize(Reactor reactor, int cellIndex)
     {
+        this.reactor = reactor;
         this.cellIndex = cellIndex;
         clickTrigger.click += OnClick;
-        UpdatePartIcon();
+        tooltipTrigger.Initialize(this.reactor, this.cellIndex);
+        Refresh();
     }
 
     private void OnClick(int button)
@@ -45,11 +51,11 @@ public class ReactorGridCellUIController : MonoBehaviour
         }
     }
 
-    public void UpdatePart(ReactorPart part)
+    public void Refresh()
     {
-        this.part = part;
         UpdatePartIcon();
         UpdatePartDurability();
+        UpdatePartTemperature();
     }
 
     private void UpdatePartIcon()
@@ -64,8 +70,9 @@ public class ReactorGridCellUIController : MonoBehaviour
         durabilitySlider.value = part != null ? part.CurrentDurability / part.Def.durability : 0;
     }
 
-    public void SetTemperature(float temperature)
+    public void UpdatePartTemperature()
     {
+        var temperature = Reactor.GetNormalizedHeat(reactor.GetCellHeat(cellIndex));
         temperatureMeterImage.color = temperatureGradient.Evaluate(temperature);
     }
 }

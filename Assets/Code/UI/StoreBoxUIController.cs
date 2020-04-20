@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class StoreBoxUIController : MonoBehaviour
@@ -12,7 +13,7 @@ public class StoreBoxUIController : MonoBehaviour
 
     public void Initialize(IEnumerable<ReactorPartDef> parts)
     {
-        foreach (var part in parts)
+        foreach (var part in parts.OrderBy(p => p.price))
         {
             var entry = Instantiate(entryPrefab, entriesParent);
             entry.Initialize(part);
